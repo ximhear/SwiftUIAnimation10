@@ -11,6 +11,10 @@
 		EC62D02829DC7BAF0017E148 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC62D02729DC7BAF0017E148 /* ContentView.swift */; };
 		EC62D02A29DC7BB00017E148 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC62D02929DC7BB00017E148 /* Assets.xcassets */; };
 		EC62D02D29DC7BB00017E148 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC62D02C29DC7BB00017E148 /* Preview Assets.xcassets */; };
+		EC62D03429DC7BBF0017E148 /* Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC62D03329DC7BBF0017E148 /* Hex.swift */; };
+		EC62D03629DC8C2E0017E148 /* HexData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC62D03529DC8C2E0017E148 /* HexData.swift */; };
+		EC62D03829DC90F00017E148 /* HexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC62D03729DC90F00017E148 /* HexView.swift */; };
+		EC62D03A29DC93210017E148 /* HoneycombGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC62D03929DC93210017E148 /* HoneycombGrid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		EC62D02729DC7BAF0017E148 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EC62D02929DC7BB00017E148 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC62D02C29DC7BB00017E148 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EC62D03329DC7BBF0017E148 /* Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hex.swift; sourceTree = "<group>"; };
+		EC62D03529DC8C2E0017E148 /* HexData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexData.swift; sourceTree = "<group>"; };
+		EC62D03729DC90F00017E148 /* HexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexView.swift; sourceTree = "<group>"; };
+		EC62D03929DC93210017E148 /* HoneycombGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneycombGrid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +59,12 @@
 		EC62D02429DC7BAF0017E148 /* SwiftUIAnimation10 */ = {
 			isa = PBXGroup;
 			children = (
+				EC62D03329DC7BBF0017E148 /* Hex.swift */,
+				EC62D03529DC8C2E0017E148 /* HexData.swift */,
+				EC62D03729DC90F00017E148 /* HexView.swift */,
 				EC62D02529DC7BAF0017E148 /* SwiftUIAnimation10App.swift */,
 				EC62D02729DC7BAF0017E148 /* ContentView.swift */,
+				EC62D03929DC93210017E148 /* HoneycombGrid.swift */,
 				EC62D02929DC7BB00017E148 /* Assets.xcassets */,
 				EC62D02B29DC7BB00017E148 /* Preview Content */,
 			);
@@ -137,8 +149,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC62D03429DC7BBF0017E148 /* Hex.swift in Sources */,
 				EC62D02829DC7BAF0017E148 /* ContentView.swift in Sources */,
+				EC62D03A29DC93210017E148 /* HoneycombGrid.swift in Sources */,
 				EC62D02629DC7BAF0017E148 /* SwiftUIAnimation10App.swift in Sources */,
+				EC62D03829DC90F00017E148 /* HexView.swift in Sources */,
+				EC62D03629DC8C2E0017E148 /* HexData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
