@@ -67,6 +67,8 @@ extension Hex {
     }
     
     func isNeighbor(of hex: Hex) -> Bool {
-        Direction.allCases.contains { hex.neighbor(at: $0) == hex }
+        let v = Direction.allCases.contains { hex.neighbor(at: $0) == self }
+        print("\(v)")
+        return v
     }
 }

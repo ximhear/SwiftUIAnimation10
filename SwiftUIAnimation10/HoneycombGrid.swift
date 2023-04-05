@@ -29,7 +29,8 @@ struct HoneycombGrid_Previews: PreviewProvider {
     static var previews: some View {
         HoneycombGrid(hexes: HexData.hexes(for: ["Hello"])) {
             ForEach(HexData.hexes(for: ["Hello"]), id: \.self) { hex in
-                HexView(hex: hex)
+                HexView(hex: hex, isSelected: true, touchedHexagon: .constant(nil)) {
+                }
             }
         }
     }
