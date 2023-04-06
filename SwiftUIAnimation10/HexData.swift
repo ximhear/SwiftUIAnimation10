@@ -37,4 +37,20 @@ struct HexData: Hashable {
             HexData(hex: hex, center: hex.center(), topic: topics[index])
         }
     }
+    static func hexes(from source: Hex, _ array: [HexData], topics: [String]) -> [HexData] {
+        var newHexData: [HexData] = []
+        
+        for direction in Hex.Direction.allCases {
+            let newHex = source.neighbor(at: direction)
+            if !array.contains(where: { $0.hex == newHex }) {
+                newHexData.append(HexData(hex: newHex, center: newHex.center(), topic: topics[newHexData.count]))
+            }
+            if newHexData.count == topics.count {
+                return newHexData
+            }
+        }
+        newHexData.append(contentsOf: hexes(from: source.neighbor(at: .allCases.randomElement()!), array + newHexData, topics: Array( topics.dropFirst(newHexData.count))))
+        
+        return newHexData
+    }
 }

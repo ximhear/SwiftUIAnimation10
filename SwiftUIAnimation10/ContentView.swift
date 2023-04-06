@@ -44,9 +44,11 @@ struct ContentView: View {
                             touchedHexagon: $touchedHexagon) {
                         select(hex: hex)
                     }
+                            .transition(.scale)
                             .scaleEffect(hexOrNeighbor ? 0.6 : 1)
                 }
             }
+            .animation(.spring(), value: hexes)
             .offset(.init(width: drag.width + dragOffset.width,
                           height: drag.height + dragOffset.height))
             .onAppear {
@@ -80,10 +82,13 @@ struct ContentView: View {
         else {
             if selectedHexes.count < 5 {
                 selectedHexes.insert(hex)
+                appendHexesIfNeeded(for: hex)
             }
         }
+        DispatchQueue.main.async {
         withAnimation(.spring()) {
             dragOffset = CGSize(width: -hex.center.x, height: -hex.center.y)
+        }
         }
     }
     
@@ -104,6 +109,16 @@ struct ContentView: View {
         }
         withAnimation(.spring()) {
             dragOffset = CGSize(width: endX, height: endY)
+        }
+    }
+    private func appendHexesIfNeeded(for hex: HexData) {
+        let shouldAppend = !hex.topic.contains("subtopic") && !hexes.contains(where: { $0.topic.contains("\(hex.topic)'s subtopic")})
+        if shouldAppend {
+            hexes.append(contentsOf: HexData.hexes(from: hex.hex, hexes, topics: [
+                "\(hex.topic)'s subtopic 1",
+                "\(hex.topic)'s subtopic 2",
+                "\(hex.topic)'s subtopic 3",
+            ]))
         }
     }
 }
