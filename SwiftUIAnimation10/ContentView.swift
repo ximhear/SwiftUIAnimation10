@@ -36,32 +36,37 @@ struct ContentView: View {
         VStack {
             Text("Pick 5 or more")
             Text("\(touchedHexagon != nil ? "touched" : "released")")
-            HoneycombGrid(hexes: hexes) {
-                ForEach(hexes, id: \.self) { hex in
-                    let hexOrNeighbor = touchedHexagon == hex || touchedHexagon?.hex.isNeighbor(of: hex.hex) == true
-                    HexView(hex: hex,
-                            isSelected: selectedHexes.contains(hex),
-                            touchedHexagon: $touchedHexagon) {
-                        select(hex: hex)
+            GeometryReader { proxy in
+                HoneycombGrid(hexes: hexes) {
+                    ForEach(hexes, id: \.self) { hex in
+                        let hexOrNeighbor = touchedHexagon == hex || touchedHexagon?.hex.isNeighbor(of: hex.hex) == true
+                        let m = measurement(for: hex, proxy)
+                        let scale = (hexOrNeighbor ? 0.9 * m.size : m.size) / diameter
+                        HexView(hex: hex,
+                                isSelected: selectedHexes.contains(hex),
+                                touchedHexagon: $touchedHexagon) {
+                            select(hex: hex)
+                        }
+                                .transition(.scale)
+                                .scaleEffect(max(0.001, scale))
+                                .offset(.init(width: m.shift.x, height: m.shift.x))
                     }
-                            .transition(.scale)
-                            .scaleEffect(hexOrNeighbor ? 0.6 : 1)
                 }
+                .animation(.spring(), value: hexes)
+                .offset(.init(width: drag.width + dragOffset.width,
+                              height: drag.height + dragOffset.height))
+                .onAppear {
+                    hexes = HexData.hexes(for: topics)
+                }
+                .simultaneousGesture(DragGesture()
+                    .updating($drag) { value, state, _ in
+                        state = value.translation
+                    }
+                    .onEnded{ state in
+                        onDragEnded(with: state)
+                    }
+                )
             }
-            .animation(.spring(), value: hexes)
-            .offset(.init(width: drag.width + dragOffset.width,
-                          height: drag.height + dragOffset.height))
-            .onAppear {
-                hexes = HexData.hexes(for: topics)
-            }
-            .simultaneousGesture(DragGesture()
-                .updating($drag) { value, state, _ in
-                    state = value.translation
-                }
-                .onEnded{ state in
-                    onDragEnded(with: state)
-                }
-            )
             Text(selectedHexes.count < 5 ? "Pick \(5 - selectedHexes.count) more!" : "You're all set!")
             ProgressView(
                 value: Double(min(5, selectedHexes.count)),
@@ -73,6 +78,22 @@ struct ContentView: View {
             .animation(.easeInOut, value: selectedHexes.count)
         }
         .padding()
+    }
+    
+    private func measurement(for hex: HexData, _ proxy: GeometryProxy) -> (size: CGFloat, shift: CGPoint) {
+        let ox = hex.center.x + drag.width + dragOffset.width
+        let oy = hex.center.y + drag.height + dragOffset.height
+        let frame: CGRect = proxy.frame(in: .global)
+        let ex = abs(ox) + diameter - frame.width / 2.0
+        let ey = abs(oy) + diameter - frame.height / 2.0
+        let excess = max(0, max(ex, ey))
+        let size = max(0, diameter - excess * 3.0 / 4.0)
+        
+        let shift = CGPoint(
+            x: ox > 0 ? -max(0, ex) / 3.0 : max(0, ex) / 3.0,
+            y: oy > 0 ? -max(0, ey) / 3.0 : max(0, ey) / 3.0
+                )
+        return (size, shift)
     }
     
     private func select(hex: HexData) {
